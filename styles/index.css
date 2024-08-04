@@ -1,0 +1,49 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  direction: rtl;
+}
+
+img {
+  max-width: 100%;
+}
+
+#header {
+  height: 550px;
+  background-image: url(/bg.jpg);
+  color: aliceblue
+}
+
+#items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+
+  width: 90%;
+  margin: 15px auto;
+  text-align: center;
+}
+
+#search {
+  width: 100%;
+  position: relative;
+  top: -28px;
+}
+
+#search form {
+  width: 80%;
+  margin: 0 auto;
+}
+
+#search form input {
+  width: 100%;
+  padding-block: 10px;
+  font-size: 22px;
+  text-align: center;
+}

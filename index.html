@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JS + Cypress</title>
+  <link rel="stylesheet" href="./styles/index.css">
+  <script type="module" src="./scripts/index.js"></script>
+</head>
+
+<body>
+  <section id="header"> </section>
+  <section id="search">
+    <form action="/pages/search.html">
+      <input type="search" name="q" id="q">
+    </form>
+  </section>
+  <section id="products">
+    <div id="items"></div>
+  </section>
+  <section id="add">
+    <form>
+      <div><label for="name">שם המוצר</label><input id="name" type="text"></div>
+      <div><label for="description">תיאור</label><input id="description" type="text"></div>
+      <div><label for="image">קישור לתמונה</label><input id="image" type="text"></div>
+      <div><label for="price">מחיר רגיל</label><input id="price" type="number"></div>
+      <div><label for="salePrice">מחיר מבצע</label><input id="salePrice" type="number"></div>
+      <div><label for="stock">כמות במלאי</label><input id="stock" type="number"></div>
+      <div><button type="submit">הוספת מוצר</button></div>
+    </form>
+  </section>
+</body>
+
+</html>
