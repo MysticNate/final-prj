@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banner Editor</title>
+    <link rel="stylesheet" href="../styles/banner.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="main.html">Main Page</a></li>
+                <li><a href="marketing.html">Marketing Page Editor</a></li>
+                <li><a href="campaign.html">Campaign Management</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="bannerEditor">
+            <h1>Banner Editor</h1>
+            <form id="bannerForm">
+                <label for="bannerType">Select Banner Type:</label>
+                <select id="bannerType" name="bannerType">
+                    <option value="vertical">Vertical</option>
+                    <option value="horizontal">Horizontal</option>
+                </select>
+
+                <label for="bannerText">Banner Text:</label>
+                <input type="text" id="bannerText" name="bannerText" placeholder="Enter banner text">
+
+                <label for="backgroundColor">Background Color:</label>
+                <input type="color" id="backgroundColor" name="backgroundColor">
+
+                <label for="textColor">Text Color:</label>
+                <input type="color" id="textColor" name="textColor">
+
+                <label for="fontSize">Font Size:</label>
+                <input type="number" id="fontSize" name="fontSize" placeholder="Enter font size">
+
+                <label for="bannerImage">Upload Banner Image:</label>
+                <input type="file" id="bannerImage" name="bannerImage" accept="image/*">
+
+                <button type="submit">Save Banner</button>
+            </form>
+            <div id="bannerPreview"></div>
+        </section>
+    </main>
+    <script src="../scripts/banner.js"></script>
+</body>
+</html>
