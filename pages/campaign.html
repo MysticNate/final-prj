@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaign Management</title>
+    <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="banner.html">Banner Editor</a></li>
+                <li><a href="marketing.html">Marketing Page Editor</a></li>
+                <li><a href="campaign.html">Campaign Management</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Campaign Management</h1>
+        <form id="campaignForm">
+            <label for="campaignName">Campaign Name:</label>
+            <input type="text" id="campaignName" placeholder="Enter campaign name" required>
+
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" required>
+
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" required>
+
+            <button type="submit">Save Campaign</button>
+        </form>
+
+        <h2>Current Campaign</h2>
+        <div id="currentCampaign">
+            <!-- campaign details will be placed here -->
+        </div>
+    </main>
+    <script src="../scripts/campaign.js"></script>
+</body>
+</html>

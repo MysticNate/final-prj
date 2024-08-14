@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const backgroundColor = document.querySelector('#backgroundColor').value;
         const textColor = document.querySelector('#textColor').value;
         const fontSize = document.querySelector('#fontSize').value + 'px';
+        const fontType = document.querySelector('#fontType').value;
         const bannerImage = document.querySelector('#bannerImage').files[0];
 
         let bannerImageURL = '';
@@ -21,11 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // create the banner HTML
         const bannerHTML = `
             <div style="
-                width: ${bannerType === 'vertical' ? '200px' : '500px'};
-                height: ${bannerType === 'vertical' ? '500px' : '200px'};
+                width: ${bannerType === 'vertical' ? '300px' : '250px'};
+                height: ${bannerType === 'vertical' ? '600px' : '250px'};
                 background-color: ${backgroundColor};
                 color: ${textColor};
                 font-size: ${fontSize};
+                font-family: ${fontType};
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -48,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
             backgroundColor,
             textColor,
             fontSize,
+            fontType,
             image: bannerImageURL
         }));
     });
