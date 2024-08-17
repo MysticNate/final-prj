@@ -200,7 +200,7 @@ export function handleLogin() {
     // Initial users
     const users = [
         { username: 'Giora', password: 'the drunk russian' },
-        { username: 'Nati', password: 'the nigga thief' },
+        { username: 'Nati', password: 'the black thief' },
         { username: 'Waseem', password: 'the arab terrorist' }
     ];
 
