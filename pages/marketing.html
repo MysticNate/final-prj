@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marketing Page Editor</title>
     <link rel="stylesheet" href="../styles/marketing.css">
-    <script src="../scripts/marketing.js" type="module"></script>
+    <script src="../scripts/index.js" type="module"></script>
 </head>
 <body>
     <header>
@@ -18,33 +18,26 @@
         </nav>
     </header>
     <main>
-        <section id="editor">
-            <h2>Edit Marketing Page</h2>
-            <form id="marketingForm">
-                <label for="pageTitle">Page Title:</label>
-                <input type="text" id="pageTitle" name="pageTitle">
+        <h1>Edit Marketing Page</h1>
+        <form id="marketingForm">
+            <label for="pageTitle">Page Title:</label>
+            <input type="text" id="pageTitle" name="pageTitle">
 
-                <label for="pageContent">Page Content:</label>
-                <textarea id="pageContent" name="pageContent"></textarea>
+            <label for="pageContent">Page Content:</label>
+            <textarea id="pageContent" name="pageContent"></textarea>
 
-                <label for="pageImage">Upload Image:</label>
-                <input type="file" id="pageImage" name="pageImage">
+            <label for="pageImage">Upload Image:</label>
+            <input type="file" id="pageImage" name="pageImage">
 
-                <label for="pageBackgroundColor">Background Color:</label>
-                <input type="color" id="pageBackgroundColor" name="pageBackgroundColor" value="#ffffff">
+            <label for="pageBackgroundColor">Background Color:</label>
+            <input type="color" id="pageBackgroundColor" name="pageBackgroundColor">
 
-                <label for="textColor">Text Color:</label>
-                <input type="color" id="textColor" name="textColor" value="#000000">
+            <label for="textColor">Text Color:</label>
+            <input type="color" id="textColor" name="textColor">
 
-                <button type="submit">Save</button>
-            </form>
-        </section>
-        <section id="preview">
-            <h2>Page Preview</h2>
-            <div id="marketingPagePreview">
-                <!-- preview will be shown  here -->
-            </div>
-        </section>
+            <button type="submit">Save Page</button>
+        </form>
+        <div id="marketingPagePreview"></div>
     </main>
 </body>
 </html>

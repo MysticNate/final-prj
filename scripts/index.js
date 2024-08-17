@@ -1,18 +1,26 @@
-import { registerSubmit, showItems, addItem, showSearchResults  } from './functions';
+import { handleBannerEditor, handleMainPage, handleMarketingPageEditor, handleCampaignManagement, handleLogin } from './functions.js';
 
-//דף הבית
-if (location.pathname == 'index.html' || location.pathname == '/') {
-  showItems();
-  document.querySelector('#add form').addEventListener('submit', addItem);
+//banner
+if (location.pathname.includes('banner.html')) {
+    handleBannerEditor();
 }
 
-//דף הרשמה
-if (location.pathname.includes('register.html')) {
-  document.querySelector('form').addEventListener('submit', registerSubmit);
+//main
+if (location.pathname.includes('main.html')) {
+    handleMainPage();
 }
 
-//דף חיפוש
-if (location.pathname.includes('search.html')) {
-  showSearchResults()
+//marketing
+if (location.pathname.includes('marketing.html')) {
+  handleMarketingPageEditor();
 }
 
+//campaign
+if (location.pathname.includes('campaign.html')) {
+  handleCampaignManagement();
+}
+
+//login
+if (location.pathname.includes('login.html')) {
+  handleLogin();
+}
