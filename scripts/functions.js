@@ -145,17 +145,14 @@ export function handleCampaignManagement() {
   const campaignForm = document.querySelector('#campaignForm');
   const currentCampaignSection = document.querySelector('#currentCampaign');
 
-  // load existing campaign from Local Storage
   const existingCampaign = JSON.parse(localStorage.getItem('campaign'));
 
   if (existingCampaign) {
-      // shows existing campaign details
       displayCampaignDetails(existingCampaign);
   } else {
       currentCampaignSection.innerHTML = '<p>No current campaign. Please create one.</p>';
   }
 
-  // campaign submit
   campaignForm.addEventListener('submit', (event) => {
       event.preventDefault();
 
@@ -163,27 +160,45 @@ export function handleCampaignManagement() {
       const startDate = document.querySelector('#startDate').value;
       const endDate = document.querySelector('#endDate').value;
 
-      // create a campaign object
+      // retrieve banner and marketing page data from Local Storage
+      const banner = JSON.parse(localStorage.getItem('banner'));
+      const marketingPage = JSON.parse(localStorage.getItem('marketingPage'));
+
+      // create a campaign object that includes the banner and marketing page data
       const campaign = {
           name: campaignName,
           startDate: startDate,
           endDate: endDate,
+          bannerImage: banner ? banner.image : '', // Use banner image URL if it exists
+          marketingPageContent: marketingPage ? marketingPage : {} // Use marketing page data if it exists
       };
 
-      // save the campaign to Local Storage
+      console.log('Campaign object:', campaign);
+
       localStorage.setItem('campaign', JSON.stringify(campaign));
 
-      // shows the campaign details
       displayCampaignDetails(campaign);
   });
 
-  // Function to display campaign details
   function displayCampaignDetails(campaign) {
       currentCampaignSection.innerHTML = `
           <h2>${campaign.name}</h2>
           <p>Start Date: ${campaign.startDate}</p>
           <p>End Date: ${campaign.endDate}</p>
-          <!-- we can add more stuff here -->
+          <div id="bannerPreview">
+              <h3>Banner Preview:</h3>
+              ${campaign.bannerImage ? `<img src="${campaign.bannerImage}" alt="Banner Preview">` : '<p>No banner image available.</p>'}
+          </div>
+          <div id="marketingPagePreview">
+              <h3>Marketing Page Preview:</h3>
+              ${campaign.marketingPageContent && campaign.marketingPageContent.title ? `
+                  <div style="background-color: ${campaign.marketingPageContent.backgroundColor}; color: ${campaign.marketingPageContent.textColor}; padding: 20px;">
+                      <h1>${campaign.marketingPageContent.title}</h1>
+                      ${campaign.marketingPageContent.image ? `<img src="${campaign.marketingPageContent.image}" alt="Marketing Image" style="width: 100%; max-height: 300px; object-fit: cover;">` : ''}
+                      <p>${campaign.marketingPageContent.content}</p>
+                  </div>
+              ` : '<p>No marketing page content available.</p>'}
+          </div>
       `;
   }
 }
