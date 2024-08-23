@@ -3,56 +3,80 @@ export function handleBannerEditor() {
   const bannerForm = document.querySelector('#bannerForm');
   const bannerPreview = document.querySelector('#bannerPreview');
 
+  bannerForm.addEventListener('input', updateBannerPreview);
+
   bannerForm.addEventListener('submit', (event) => {
-      event.preventDefault(); // this prevents the form from refreshing the page
+    event.preventDefault();
 
-      const bannerType = document.querySelector('#bannerType').value;
-      const bannerText = document.querySelector('#bannerText').value;
-      const backgroundColor = document.querySelector('#backgroundColor').value;
-      const textColor = document.querySelector('#textColor').value;
-      const fontSize = document.querySelector('#fontSize').value + 'px';
-      const fontFamily = document.querySelector('#fontType').value;
-      const bannerImage = document.querySelector('#bannerImage').files[0];
+    const bannerType = document.querySelector('#bannerType').value;
+    const bannerText = document.querySelector('#bannerText').value;
+    const backgroundColor = document.querySelector('#backgroundColor').value;
+    const textColor = document.querySelector('#textColor').value;
+    const fontSize = document.querySelector('#fontSize').value + 'px';
+    const fontFamily = document.querySelector('#fontType').value;
+    const bannerImage = document.querySelector('#bannerImage').files[0];
 
-      let bannerImageURL = ''; // create a URL for the image if there is one
-      if (bannerImage) {
-          bannerImageURL = URL.createObjectURL(bannerImage);
-      }
+    let bannerImageURL = '';
+    if (bannerImage) {
+      bannerImageURL = URL.createObjectURL(bannerImage);
+    }
 
-      const bannerHTML = `
-          <div style="
-              width: ${bannerType === 'vertical' ? '300px' : '250px'};
-              height: ${bannerType === 'vertical' ? '600px' : '250px'};
-              background-color: ${backgroundColor};
-              color: ${textColor};
-              font-size: ${fontSize};
-              font-family: ${fontFamily};
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              text-align: center;
-              position: relative;
-              overflow: hidden;
-          ">
-              ${bannerImageURL ? `<img src="${bannerImageURL}" style="width: 100%; height: 100%; object-fit: cover;">` : ''}
-              ${bannerText}
-          </div>
-      `;
+    // Update preview
+    updateBannerPreview();
 
-      bannerPreview.innerHTML = bannerHTML;
+    // Save to localStorage
+    const bannerData = {
+      type: bannerType,
+      text: bannerText,
+      backgroundColor,
+      textColor,
+      fontSize,
+      fontFamily,
+      image: bannerImageURL,
+    };
 
-      // Save to localStorage if needed
-      localStorage.setItem('banner', JSON.stringify({
-          type: bannerType,
-          text: bannerText,
-          backgroundColor,
-          textColor,
-          fontSize,
-          fontFamily,
-          image: bannerImageURL
-      }));
+    localStorage.setItem('banner', JSON.stringify(bannerData));
+    alert('Banner saved!');
   });
+
+  function updateBannerPreview() {
+    const bannerType = document.querySelector('#bannerType').value;
+    const bannerText = document.querySelector('#bannerText').value;
+    const backgroundColor = document.querySelector('#backgroundColor').value;
+    const textColor = document.querySelector('#textColor').value;
+    const fontSize = document.querySelector('#fontSize').value + 'px';
+    const fontFamily = document.querySelector('#fontType').value;
+    const bannerImage = document.querySelector('#bannerImage').files[0];
+
+    let bannerImageURL = '';
+    if (bannerImage) {
+      bannerImageURL = URL.createObjectURL(bannerImage);
+    }
+
+    const bannerHTML = `
+      <div style="
+        width: ${bannerType === 'vertical' ? '300px' : '250px'};
+        height: ${bannerType === 'vertical' ? '600px' : '250px'};
+        background-color: ${backgroundColor};
+        color: ${textColor};
+        font-size: ${fontSize};
+        font-family: ${fontFamily};
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      ">
+        ${bannerImageURL ? `<img src="${bannerImageURL}" style="width: 100%; height: 100%; object-fit: cover;">` : ''}
+        ${bannerText}
+      </div>
+    `;
+
+    bannerPreview.innerHTML = bannerHTML;
+  }
 }
+
 
 // main page
 export function handleMainPage() {
@@ -92,51 +116,51 @@ export function handleMarketingPageEditor() {
   marketingForm.addEventListener('submit', saveMarketingPage);
 
   function updatePreview() {
-      const pageTitle = document.querySelector('#pageTitle').value;
-      const pageContent = document.querySelector('#pageContent').value;
-      const pageBackgroundColor = document.querySelector('#pageBackgroundColor').value;
-      const textColor = document.querySelector('#textColor').value;
-      const pageImage = document.querySelector('#pageImage').files[0];
+    const pageTitle = document.querySelector('#pageTitle').value;
+    const pageContent = document.querySelector('#pageContent').value;
+    const pageBackgroundColor = document.querySelector('#pageBackgroundColor').value;
+    const textColor = document.querySelector('#textColor').value;
+    const pageImage = document.querySelector('#pageImage').files[0];
 
-      let imageHTML = '';
-      if (pageImage) {
-          const imageUrl = URL.createObjectURL(pageImage);
-          imageHTML = `<img src="${imageUrl}" alt="Marketing Image" style="width: 100%; max-height: 300px; object-fit: cover;">`;
-      }
+    let imageHTML = '';
+    if (pageImage) {
+      const imageUrl = URL.createObjectURL(pageImage);
+      imageHTML = `<img src="${imageUrl}" alt="Marketing Image" style="width: 100%; max-height: 300px; object-fit: cover;">`;
+    }
 
-      marketingPagePreview.innerHTML = `
-          <div style="background-color: ${pageBackgroundColor}; color: ${textColor}; padding: 20px;">
-              <h1>${pageTitle}</h1>
-              ${imageHTML}
-              <p>${pageContent}</p>
-          </div>
-      `;
+    marketingPagePreview.innerHTML = `
+      <div style="background-color: ${pageBackgroundColor}; color: ${textColor}; padding: 20px;">
+        <h1>${pageTitle}</h1>
+        ${imageHTML}
+        <p>${pageContent}</p>
+      </div>
+    `;
   }
 
   function saveMarketingPage(event) {
-      event.preventDefault();
+    event.preventDefault();
 
-      const pageTitle = document.querySelector('#pageTitle').value;
-      const pageContent = document.querySelector('#pageContent').value;
-      const pageBackgroundColor = document.querySelector('#pageBackgroundColor').value;
-      const textColor = document.querySelector('#textColor').value;
-      const pageImage = document.querySelector('#pageImage').files[0];
+    const pageTitle = document.querySelector('#pageTitle').value;
+    const pageContent = document.querySelector('#pageContent').value;
+    const pageBackgroundColor = document.querySelector('#pageBackgroundColor').value;
+    const textColor = document.querySelector('#textColor').value;
+    const pageImage = document.querySelector('#pageImage').files[0];
 
-      let imageUrl = '';
-      if (pageImage) {
-          imageUrl = URL.createObjectURL(pageImage);
-      }
+    let imageUrl = '';
+    if (pageImage) {
+      imageUrl = URL.createObjectURL(pageImage);
+    }
 
-      const marketingPageData = {
-          title: pageTitle,
-          content: pageContent,
-          backgroundColor: pageBackgroundColor,
-          textColor: textColor,
-          image: imageUrl
-      };
+    const marketingPageData = {
+      title: pageTitle,
+      content: pageContent,
+      backgroundColor: pageBackgroundColor,
+      textColor: textColor,
+      image: imageUrl,
+    };
 
-      localStorage.setItem('marketingPage', JSON.stringify(marketingPageData));
-      alert('Marketing page saved!');
+    localStorage.setItem('marketingPage', JSON.stringify(marketingPageData));
+    alert('Marketing page saved!');
   }
 }
 
@@ -146,60 +170,62 @@ export function handleCampaignManagement() {
   const currentCampaignSection = document.querySelector('#currentCampaign');
 
   const existingCampaign = JSON.parse(localStorage.getItem('campaign'));
+  const banner = JSON.parse(localStorage.getItem('banner'));
+  const marketingPage = JSON.parse(localStorage.getItem('marketingPage'));
 
   if (existingCampaign) {
-      displayCampaignDetails(existingCampaign);
+    displayCampaignDetails(existingCampaign, banner, marketingPage);
   } else {
-      currentCampaignSection.innerHTML = '<p>No current campaign. Please create one.</p>';
+    currentCampaignSection.innerHTML = '<p>No current campaign. Please create one.</p>';
   }
 
   campaignForm.addEventListener('submit', (event) => {
-      event.preventDefault();
+    event.preventDefault();
 
-      const campaignName = document.querySelector('#campaignName').value;
-      const startDate = document.querySelector('#startDate').value;
-      const endDate = document.querySelector('#endDate').value;
+    const campaignName = document.querySelector('#campaignName').value;
+    const startDate = document.querySelector('#startDate').value;
+    const endDate = document.querySelector('#endDate').value;
 
-      // retrieve banner and marketing page data from Local Storage
-      const banner = JSON.parse(localStorage.getItem('banner'));
-      const marketingPage = JSON.parse(localStorage.getItem('marketingPage'));
+    // retrieve banner and marketing page data from Local Storage
+    const banner = JSON.parse(localStorage.getItem('banner'));
+    const marketingPage = JSON.parse(localStorage.getItem('marketingPage'));
 
-      // create a campaign object that includes the banner and marketing page data
-      const campaign = {
-          name: campaignName,
-          startDate: startDate,
-          endDate: endDate,
-          bannerImage: banner ? banner.image : '', // Use banner image URL if it exists
-          marketingPageContent: marketingPage ? marketingPage : {} // Use marketing page data if it exists
-      };
+    // create a campaign object that includes the banner and marketing page data
+    const campaign = {
+      name: campaignName,
+      startDate: startDate,
+      endDate: endDate,
+      bannerImage: banner ? banner.image : '', // Use banner image URL if it exists
+      marketingPageContent: marketingPage ? marketingPage : {} // Use marketing page data if it exists
+    };
 
-      console.log('Campaign object:', campaign);
+    console.log('Campaign object:', campaign);
 
-      localStorage.setItem('campaign', JSON.stringify(campaign));
+    localStorage.setItem('campaign', JSON.stringify(campaign));
 
-      displayCampaignDetails(campaign);
+    displayCampaignDetails(campaign, banner, marketingPage);
   });
 
-  function displayCampaignDetails(campaign) {
-      currentCampaignSection.innerHTML = `
-          <h2>${campaign.name}</h2>
-          <p>Start Date: ${campaign.startDate}</p>
-          <p>End Date: ${campaign.endDate}</p>
-          <div id="bannerPreview">
-              <h3>Banner Preview:</h3>
-              ${campaign.bannerImage ? `<img src="${campaign.bannerImage}" alt="Banner Preview">` : '<p>No banner image available.</p>'}
+  function displayCampaignDetails(campaign, banner, marketingPage) {
+    currentCampaignSection.innerHTML = `
+      <h2>${campaign.name}</h2>
+      <p>Start Date: ${campaign.startDate}</p>
+      <p>End Date: ${campaign.endDate}</p>
+      <div id="bannerPreview">
+        <h3>Banner Preview:</h3>
+        ${banner && banner.image ? `<img src="${banner.image}" alt="Banner Preview">` : '<p>No banner image available.</p>'}
+      </div>
+      <div id="marketingPagePreview">
+        <h3>Marketing Page Preview:</h3>
+        ${marketingPage && marketingPage.title ? `
+          <div style="background-color: ${marketingPage.backgroundColor}; color: ${marketingPage.textColor}; padding: 20px;">
+            <h1>${marketingPage.title}</h1>
+            ${marketingPage.image ? `<img src="${marketingPage.image}" alt="Marketing Image" style="width: 100%; max-height: 300px; object-fit: cover;">` : ''}
+            <p>${marketingPage.content}</p>
           </div>
-          <div id="marketingPagePreview">
-              <h3>Marketing Page Preview:</h3>
-              ${campaign.marketingPageContent && campaign.marketingPageContent.title ? `
-                  <div style="background-color: ${campaign.marketingPageContent.backgroundColor}; color: ${campaign.marketingPageContent.textColor}; padding: 20px;">
-                      <h1>${campaign.marketingPageContent.title}</h1>
-                      ${campaign.marketingPageContent.image ? `<img src="${campaign.marketingPageContent.image}" alt="Marketing Image" style="width: 100%; max-height: 300px; object-fit: cover;">` : ''}
-                      <p>${campaign.marketingPageContent.content}</p>
-                  </div>
-              ` : '<p>No marketing page content available.</p>'}
-          </div>
-      `;
+        ` : '<p>No marketing page content available.</p>'}
+      </div>
+    `;
   }
 }
 
