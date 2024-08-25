@@ -86,17 +86,28 @@ export function handleMainPage() {
   const campaign = JSON.parse(localStorage.getItem('campaign'));
 
   if (campaign) {
+      // ensuring the banner and marketing page data is correctly displayed
+      const bannerImageHTML = campaign.bannerImage ? `<img src="${campaign.bannerImage}" alt="Banner Preview" style="width: 100%; height: 100%; object-fit: cover;">` : '<p>No banner image available.</p>';
+      const marketingPageContentHTML = campaign.marketingPageContent && typeof campaign.marketingPageContent === 'object' ? `
+          <div style="background-color: ${campaign.marketingPageContent.backgroundColor}; color: ${campaign.marketingPageContent.textColor}; padding: 20px;">
+              <h1>${campaign.marketingPageContent.title}</h1>
+              ${campaign.marketingPageContent.image ? `<img src="${campaign.marketingPageContent.image}" alt="Marketing Image" style="width: 100%; max-height: 300px; object-fit: cover;">` : ''}
+              <p>${campaign.marketingPageContent.content}</p>
+          </div>
+      ` : '<p>No marketing page content available.</p>';
+
+      // Update the campaign overview section with the correct HTML
       campaignOverview.innerHTML = `
           <h2>${campaign.name}</h2>
           <p>Start Date: ${campaign.startDate}</p>
           <p>End Date: ${campaign.endDate}</p>
           <div id="bannerPreview">
               <h3>Banner Preview:</h3>
-              <img src="${campaign.bannerImage}" alt="Banner Preview">
+              ${bannerImageHTML}
           </div>
           <div id="marketingPagePreview">
               <h3>Marketing Page Preview:</h3>
-              <div>${campaign.marketingPageContent}</div>
+              ${marketingPageContentHTML}
           </div>
       `;
   } else {
