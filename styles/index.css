@@ -1,0 +1,30 @@
+.menu-header {
+    background-color: #ff0000;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.menu-header ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-header li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.menu-header a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.menu-header a:hover {
+    text-decoration: underline;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
