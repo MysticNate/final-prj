@@ -1,5 +1,6 @@
 import { handleBannerEditor, handleMainPage, handleMarketingPageEditor, handleCampaignManagement, handleLogin } from './functions.js';
 
+document.addEventListener('DOMContentLoaded', ()=>{
 //banner
 if (location.pathname.includes('banner.html')) {
     handleBannerEditor();
@@ -24,3 +25,4 @@ if (location.pathname.includes('campaign.html')) {
 if (location.pathname.includes('login.html')) {
   handleLogin();
 }
+});
