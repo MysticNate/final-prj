@@ -14,12 +14,6 @@ export function handleBannerEditor() {
     const textColor = document.querySelector('#textColor').value;
     const fontSize = document.querySelector('#fontSize').value + 'px';
     const fontFamily = document.querySelector('#fontType').value;
-    const bannerImage = document.querySelector('#bannerImage').files[0];
-
-    let bannerImageURL = '';
-    if (bannerImage) {
-      bannerImageURL = URL.createObjectURL(bannerImage);
-    }
 
     // Update preview
     updateBannerPreview();
@@ -31,8 +25,7 @@ export function handleBannerEditor() {
       backgroundColor,
       textColor,
       fontSize,
-      fontFamily,
-      image: bannerImageURL,
+      fontFamily
     };
 
     localStorage.setItem('banner', JSON.stringify(bannerData));
@@ -46,12 +39,6 @@ export function handleBannerEditor() {
     const textColor = document.querySelector('#textColor').value;
     const fontSize = document.querySelector('#fontSize').value + 'px';
     const fontFamily = document.querySelector('#fontType').value;
-    const bannerImage = document.querySelector('#bannerImage').files[0];
-
-    let bannerImageURL = '';
-    if (bannerImage) {
-      bannerImageURL = URL.createObjectURL(bannerImage);
-    }
 
     const bannerHTML = `
       <div style="
@@ -68,7 +55,6 @@ export function handleBannerEditor() {
         position: relative;
         overflow: hidden;
       ">
-        ${bannerImageURL ? `<img src="${bannerImageURL}" style="width: 100%; height: 100%; object-fit: cover;">` : ''}
         ${bannerText}
       </div>
     `;
