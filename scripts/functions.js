@@ -6,96 +6,117 @@ export function handleBannerEditor() {
   bannerForm.addEventListener('input', updateBannerPreview);
 
   bannerForm.addEventListener('submit', (event) => {
-    event.preventDefault();
+      event.preventDefault();
 
-    const bannerType = document.querySelector('#bannerType').value;
-    const bannerText = document.querySelector('#bannerText').value;
-    const backgroundColor = document.querySelector('#backgroundColor').value;
-    const textColor = document.querySelector('#textColor').value;
-    const fontSize = document.querySelector('#fontSize').value + 'px';
-    const fontFamily = document.querySelector('#fontType').value;
+      const bannerType = document.querySelector('#bannerType').value;
+      const bannerText = document.querySelector('#bannerText').value;
+      const backgroundColor = document.querySelector('#backgroundColor').value;
+      const textColor = document.querySelector('#textColor').value;
+      const fontSize = document.querySelector('#fontSize').value + 'px';
+      const fontFamily = document.querySelector('#fontType').value;
 
-    // Update preview
-    updateBannerPreview();
+      // Ensure all values are defined before saving
+      const bannerData = {
+          type: bannerType || '',            // Default to empty string if undefined
+          text: bannerText || '',            // Default to empty string if undefined
+          backgroundColor: backgroundColor || '',  // Default to empty string if undefined
+          textColor: textColor || '',        // Default to empty string if undefined
+          fontSize: fontSize || '16px',      // Default to '16px' if undefined
+          fontFamily: fontFamily || 'Arial'  // Default to 'Arial' if undefined
+      };
 
-    // Save to localStorage
-    const bannerData = {
-      type: bannerType,
-      text: bannerText,
-      backgroundColor,
-      textColor,
-      fontSize,
-      fontFamily
-    };
-
-    localStorage.setItem('banner', JSON.stringify(bannerData));
-    alert('Banner saved!');
+      // Save banner data to localStorage
+      localStorage.setItem('banner', JSON.stringify(bannerData));
+      let campaign = JSON.parse(localStorage.getItem('campaign')) || {};
+      campaign.banner = bannerData;
+      localStorage.setItem('campaign', JSON.stringify(campaign));
+      alert('Banner saved!');
   });
 
   function updateBannerPreview() {
-    const bannerType = document.querySelector('#bannerType').value;
-    const bannerText = document.querySelector('#bannerText').value;
-    const backgroundColor = document.querySelector('#backgroundColor').value;
-    const textColor = document.querySelector('#textColor').value;
-    const fontSize = document.querySelector('#fontSize').value + 'px';
-    const fontFamily = document.querySelector('#fontType').value;
+      const bannerType = document.querySelector('#bannerType').value;
+      const bannerText = document.querySelector('#bannerText').value;
+      const backgroundColor = document.querySelector('#backgroundColor').value;
+      const textColor = document.querySelector('#textColor').value;
+      const fontSize = document.querySelector('#fontSize').value + 'px';
+      const fontFamily = document.querySelector('#fontType').value;
 
-    const bannerHTML = `
-      <div style="
-        width: ${bannerType === 'vertical' ? '300px' : '250px'};
-        height: ${bannerType === 'vertical' ? '600px' : '250px'};
-        background-color: ${backgroundColor};
-        color: ${textColor};
-        font-size: ${fontSize};
-        font-family: ${fontFamily};
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-      ">
-        ${bannerText}
-      </div>
-    `;
+      const bannerHTML = `
+          <div style="
+              width: ${bannerType === 'vertical' ? '300px' : '250px'};
+              height: ${bannerType === 'vertical' ? '600px' : '250px'};
+              background-color: ${backgroundColor};
+              color: ${textColor};
+              font-size: ${fontSize};
+              font-family: ${fontFamily};
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              text-align: center;
+              position: relative;
+              overflow: hidden;
+          ">
+              ${bannerText}
+          </div>
+      `;
 
-    bannerPreview.innerHTML = bannerHTML;
+      bannerPreview.innerHTML = bannerHTML;
   }
 }
-
 
 // main page
 export function handleMainPage() {
   const campaignOverview = document.querySelector('#campaignOverview');
   const messageSection = document.querySelector('#message');
-  // retrieve campaign data from localStorage
-  const campaign = JSON.parse(localStorage.getItem('campaign'));
 
-  if (campaign) {
-      // ensuring the banner and marketing page data is correctly displayed
-      const bannerImageHTML = campaign.bannerImage ? `<img src="${campaign.bannerImage}" alt="Banner Preview" style="width: 100%; height: 100%; object-fit: cover;">` : '<p>No banner image available.</p>';
-      const marketingPageContentHTML = campaign.marketingPageContent && typeof campaign.marketingPageContent === 'object' ? `
-          <div style="background-color: ${campaign.marketingPageContent.backgroundColor}; color: ${campaign.marketingPageContent.textColor}; padding: 20px;">
-              <h1>${campaign.marketingPageContent.title}</h1>
-              ${campaign.marketingPageContent.image ? `<img src="${campaign.marketingPageContent.image}" alt="Marketing Image" style="width: 100%; max-height: 300px; object-fit: cover;">` : ''}
-              <p>${campaign.marketingPageContent.content}</p>
-          </div>
-      ` : '<p>No marketing page content available.</p>';
+  // Retrieve banner data from localStorage
+  const campaign = JSON.parse(localStorage.getItem('campaign')) || {};
+  const banner = campaign.banner || JSON.parse(localStorage.getItem('banner')) || {};
+  
+  if (banner) {
+    // Use the banner data to construct the bannerHTML
+    const bannerHTML = `
+        <div style="
+            width: ${banner.type === 'vertical' ? '300px' : '600px'};
+            height: ${banner.type === 'vertical' ? '600px' : '250px'};
+            background-color: ${banner.backgroundColor};
+            color: ${banner.textColor};
+            font-size: ${banner.fontSize};
+            font-family: ${banner.fontFamily};
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        ">
+            ${banner.text}
+        </div>
+    `;
 
-      // Update the campaign overview section with the correct HTML
-      campaignOverview.innerHTML = `
-          <h2>${campaign.name}</h2>
-          <p>Start Date: ${campaign.startDate}</p>
-          <p>End Date: ${campaign.endDate}</p>
-          <div id="bannerPreview">
-              <h3>Banner Preview:</h3>
-              ${bannerImageHTML}
-          </div>
-          <div id="marketingPagePreview">
-              <h3>Marketing Page Preview:</h3>
-              ${marketingPageContentHTML}
-          </div>
-      `;
+    // Ensure marketing page content is correctly handled
+    const marketingPageContentHTML = campaign.marketingPageContent && typeof campaign.marketingPageContent === 'object' ? `
+        <div style="background-color: ${campaign.marketingPageContent.backgroundColor}; color: ${campaign.marketingPageContent.textColor}; padding: 20px;">
+            <h1>${campaign.marketingPageContent.title}</h1>
+            ${campaign.marketingPageContent.image ? `<img src="${campaign.marketingPageContent.image}" alt="Marketing Image" style="width: 100%; max-height: 300px; object-fit: cover;">` : ''}
+            <p>${campaign.marketingPageContent.content}</p>
+        </div>
+    ` : '<p>No marketing page content available.</p>';
+
+    // Update the campaign overview section with the correct HTML
+    campaignOverview.innerHTML = `
+        <h2>${campaign.name || 'Unnamed Campaign'}</h2>
+        <p>Start Date: ${campaign.startDate || 'Not set'}</p>
+        <p>End Date: ${campaign.endDate || 'Not set'}</p>
+        <div id="bannerPreview">
+            <h3>Banner Preview:</h3>
+            ${bannerHTML}
+        </div>
+        <div id="marketingPagePreview">
+            <h3>Marketing Page Preview:</h3>
+            ${marketingPageContentHTML}
+        </div>
+    `;
   } else {
       messageSection.innerHTML = `
           <h2>No Active Campaign</h2>
@@ -192,7 +213,6 @@ export function handleCampaignManagement() {
       name: campaignName,
       startDate: startDate,
       endDate: endDate,
-      bannerImage: banner ? banner.image : '', // Use banner image URL if it exists
       marketingPageContent: marketingPage ? marketingPage : {} // Use marketing page data if it exists
     };
 
@@ -210,7 +230,7 @@ export function handleCampaignManagement() {
       <p>End Date: ${campaign.endDate}</p>
       <div id="bannerPreview">
         <h3>Banner Preview:</h3>
-        ${banner && banner.image ? `<img src="${banner.image}" alt="Banner Preview">` : '<p>No banner image available.</p>'}
+        ${banner && banner.image ? `<img src="${banner.image}" alt="Banner Preview">` : '<p>No banner available.</p>'}
       </div>
       <div id="marketingPagePreview">
         <h3>Marketing Page Preview:</h3>
