@@ -27,6 +27,8 @@ export function handleBannerEditor() {
 
       // Save banner data to localStorage
       localStorage.setItem('banner', JSON.stringify(bannerData));
+
+      // Update the banner preview
       let campaign = JSON.parse(localStorage.getItem('campaign')) || {};
       campaign.banner = bannerData;
       localStorage.setItem('campaign', JSON.stringify(campaign));
@@ -69,15 +71,16 @@ export function handleMainPage() {
   const campaignOverview = document.querySelector('#campaignOverview');
   const messageSection = document.querySelector('#message');
 
-  // Retrieve banner data from localStorage
+  // Retrieve data from localStorage
   const campaign = JSON.parse(localStorage.getItem('campaign')) || {};
   const banner = campaign.banner || JSON.parse(localStorage.getItem('banner')) || {};
+  const marketingPage = JSON.parse(localStorage.getItem('marketingPage')) || {};
   
-  if (banner) {
+  if (campaign.name) {
     // Use the banner data to construct the bannerHTML
     const bannerHTML = `
         <div style="
-            width: ${banner.type === 'vertical' ? '300px' : '600px'};
+            width: ${banner.type === 'vertical' ? '300px' : '250px'};
             height: ${banner.type === 'vertical' ? '600px' : '250px'};
             background-color: ${banner.backgroundColor};
             color: ${banner.textColor};
@@ -90,17 +93,17 @@ export function handleMainPage() {
             position: relative;
             overflow: hidden;
         ">
-            ${banner.text}
+            ${banner.text || 'No banner text'}
         </div>
     `;
 
     // Ensure marketing page content is correctly handled
-    const marketingPageContentHTML = campaign.marketingPageContent && typeof campaign.marketingPageContent === 'object' ? `
-        <div style="background-color: ${campaign.marketingPageContent.backgroundColor}; color: ${campaign.marketingPageContent.textColor}; padding: 20px;">
-            <h1>${campaign.marketingPageContent.title}</h1>
-            ${campaign.marketingPageContent.image ? `<img src="${campaign.marketingPageContent.image}" alt="Marketing Image" style="width: 100%; max-height: 300px; object-fit: cover;">` : ''}
-            <p>${campaign.marketingPageContent.content}</p>
-        </div>
+    const marketingPageContentHTML = marketingPage ? `
+      <div style="background-color: ${marketingPage.backgroundColor}; color: ${marketingPage.textColor}; padding: 20px;">
+        <h1>${marketingPage.title}</h1>
+        ${marketingPage.image ? `<img src="${marketingPage.image}" alt="Marketing Image" style="width: 100%; max-height: 300px; object-fit: cover;">` : ''}
+        <p>${marketingPage.content}</p>
+      </div>
     ` : '<p>No marketing page content available.</p>';
 
     // Update the campaign overview section with the correct HTML
@@ -129,6 +132,8 @@ export function handleMainPage() {
 export function handleMarketingPageEditor() {
   const marketingForm = document.querySelector('#marketingForm');
   const marketingPagePreview = document.querySelector('#marketingPagePreview');
+  const campaign = JSON.parse(localStorage.getItem('campaign')) || {};
+  const banner = campaign.banner || JSON.parse(localStorage.getItem('banner')) || {};
 
   marketingForm.addEventListener('input', updatePreview);
   marketingForm.addEventListener('submit', saveMarketingPage);
@@ -155,6 +160,31 @@ export function handleMarketingPageEditor() {
     `;
   }
 
+  if (campaign.name) {
+    // Display the banner preview
+    const bannerPreview = document.querySelector('#bannerPreview');
+    if (bannerPreview) {
+        bannerPreview.innerHTML = `
+            <div style="
+                width: ${banner.type === 'vertical' ? '300px' : '600px'};
+                height: ${banner.type === 'vertical' ? '600px' : '250px'};
+                background-color: ${banner.backgroundColor};
+                color: ${banner.textColor};
+                font-size: ${banner.fontSize};
+                font-family: ${banner.fontFamily};
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+            ">
+                ${banner.text}
+            </div>
+        `;
+    }
+  }
+
   function saveMarketingPage(event) {
     event.preventDefault();
 
@@ -178,6 +208,11 @@ export function handleMarketingPageEditor() {
     };
 
     localStorage.setItem('marketingPage', JSON.stringify(marketingPageData));
+
+    // Update the campaign object with the new marketing page data
+    let campaign = JSON.parse(localStorage.getItem('campaign')) || {};
+    campaign.marketingPageContent = marketingPageData;
+    localStorage.setItem('campaign', JSON.stringify(campaign));
     alert('Marketing page saved!');
   }
 }
@@ -224,13 +259,31 @@ export function handleCampaignManagement() {
   });
 
   function displayCampaignDetails(campaign, banner, marketingPage) {
+    const bannerData = campaign.banner || banner || {};
     currentCampaignSection.innerHTML = `
       <h2>${campaign.name}</h2>
       <p>Start Date: ${campaign.startDate}</p>
       <p>End Date: ${campaign.endDate}</p>
       <div id="bannerPreview">
         <h3>Banner Preview:</h3>
-        ${banner && banner.image ? `<img src="${banner.image}" alt="Banner Preview">` : '<p>No banner available.</p>'}
+        ${bannerData.text ? `
+          <div style="
+            width: ${bannerData.type === 'vertical' ? '300px' : '250px'};
+            height: ${bannerData.type === 'vertical' ? '600px' : '250px'};
+            background-color: ${bannerData.backgroundColor};
+            color: ${bannerData.textColor};
+            font-size: ${bannerData.fontSize};
+            font-family: ${bannerData.fontFamily};
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+          ">
+            ${bannerData.text}
+          </div>
+        ` : '<p>No banner available.</p>'}
       </div>
       <div id="marketingPagePreview">
         <h3>Marketing Page Preview:</h3>
@@ -243,7 +296,7 @@ export function handleCampaignManagement() {
         ` : '<p>No marketing page content available.</p>'}
       </div>
     `;
-  }
+  }  
 }
 
 //login
