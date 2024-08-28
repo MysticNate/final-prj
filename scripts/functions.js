@@ -7,6 +7,8 @@ export function handleBannerEditor() {
 
   bannerForm.addEventListener('submit', (event) => {
       event.preventDefault();
+      //בדיקה אם קוד כפול
+      //אולי זה בשביל ה real time
 
       const bannerType = document.querySelector('#bannerType').value;
       const bannerText = document.querySelector('#bannerText').value;
@@ -16,7 +18,7 @@ export function handleBannerEditor() {
       const fontFamily = document.querySelector('#fontType').value;
 
       // Ensure all values are defined before saving
-      const bannerData = {
+      let bannerData = {
           type: bannerType || '',            // Default to empty string if undefined
           text: bannerText || '',            // Default to empty string if undefined
           backgroundColor: backgroundColor || '',  // Default to empty string if undefined
@@ -72,9 +74,9 @@ export function handleMainPage() {
   const messageSection = document.querySelector('#message');
 
   // Retrieve data from localStorage
-  const campaign = JSON.parse(localStorage.getItem('campaign')) || {};
-  const banner = campaign.banner || JSON.parse(localStorage.getItem('banner')) || {};
-  const marketingPage = JSON.parse(localStorage.getItem('marketingPage')) || {};
+  let campaign = JSON.parse(localStorage.getItem('campaign')) || {};
+  let banner = campaign.banner || JSON.parse(localStorage.getItem('banner')) || {};
+  let marketingPage = JSON.parse(localStorage.getItem('marketingPage')) || {};
   
   if (campaign.name) {
     // Use the banner data to construct the bannerHTML
@@ -114,12 +116,23 @@ export function handleMainPage() {
         <div id="bannerPreview">
             <h3>Banner Preview:</h3>
             ${bannerHTML}
+            <button id="editBanner">Edit Banner</button>
         </div>
         <div id="marketingPagePreview">
             <h3>Marketing Page Preview:</h3>
             ${marketingPageContentHTML}
+            <button id="editMarketingPage">Edit Marketing Page</button>
         </div>
     `;
+
+    // event listeners to the edit buttons
+    document.querySelector('#editBanner').addEventListener('click', () => {
+      window.location.href = 'banner.html';
+    });
+    
+    document.querySelector('#editMarketingPage').addEventListener('click', () => {
+      window.location.href = 'marketing.html';
+    });
   } else {
       messageSection.innerHTML = `
           <h2>No Active Campaign</h2>
@@ -132,8 +145,8 @@ export function handleMainPage() {
 export function handleMarketingPageEditor() {
   const marketingForm = document.querySelector('#marketingForm');
   const marketingPagePreview = document.querySelector('#marketingPagePreview');
-  const campaign = JSON.parse(localStorage.getItem('campaign')) || {};
-  const banner = campaign.banner || JSON.parse(localStorage.getItem('banner')) || {};
+  let campaign = JSON.parse(localStorage.getItem('campaign')) || {};
+  let banner = campaign.banner || JSON.parse(localStorage.getItem('banner')) || {};
 
   marketingForm.addEventListener('input', updatePreview);
   marketingForm.addEventListener('submit', saveMarketingPage);
@@ -147,8 +160,8 @@ export function handleMarketingPageEditor() {
 
     let imageHTML = '';
     if (pageImage) {
-      const imageUrl = URL.createObjectURL(pageImage);
-      imageHTML = `<img src="${imageUrl}" alt="Marketing Image" style="width: 100%; max-height: 300px; object-fit: cover;">`;
+      let imageUrl = URL.createObjectURL(pageImage);
+      imageHTML = `<img src="${imageUrl}" alt="Marketing Image" style="width: 100%; max-width: 100%; height: auto; max-height: 300px; object-fit: cover; object-position: center;">`;
     }
 
     marketingPagePreview.innerHTML = `
@@ -222,9 +235,9 @@ export function handleCampaignManagement() {
   const campaignForm = document.querySelector('#campaignForm');
   const currentCampaignSection = document.querySelector('#currentCampaign');
 
-  const existingCampaign = JSON.parse(localStorage.getItem('campaign'));
-  const banner = JSON.parse(localStorage.getItem('banner'));
-  const marketingPage = JSON.parse(localStorage.getItem('marketingPage'));
+  let existingCampaign = JSON.parse(localStorage.getItem('campaign'));
+  let banner = JSON.parse(localStorage.getItem('banner'));
+  let marketingPage = JSON.parse(localStorage.getItem('marketingPage'));
 
   if (existingCampaign) {
     displayCampaignDetails(existingCampaign, banner, marketingPage);
@@ -244,14 +257,12 @@ export function handleCampaignManagement() {
     const marketingPage = JSON.parse(localStorage.getItem('marketingPage'));
 
     // create a campaign object that includes the banner and marketing page data
-    const campaign = {
+    let campaign = {
       name: campaignName,
       startDate: startDate,
       endDate: endDate,
       marketingPageContent: marketingPage ? marketingPage : {} // Use marketing page data if it exists
     };
-
-    console.log('Campaign object:', campaign);
 
     localStorage.setItem('campaign', JSON.stringify(campaign));
 
@@ -302,7 +313,7 @@ export function handleCampaignManagement() {
 //login
 export function handleLogin() {
   // Initial users
-  const users = [
+  let users = [
       { username: 'Giora', password: 'the drunk russian' },
       { username: 'Nati', password: 'the black thief' },
       { username: 'Waseem', password: 'the arab terrorist' }
