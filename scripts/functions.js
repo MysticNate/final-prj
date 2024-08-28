@@ -116,23 +116,12 @@ export function handleMainPage() {
         <div id="bannerPreview">
             <h3>Banner Preview:</h3>
             ${bannerHTML}
-            <button id="editBanner">Edit Banner</button>
         </div>
         <div id="marketingPagePreview">
             <h3>Marketing Page Preview:</h3>
             ${marketingPageContentHTML}
-            <button id="editMarketingPage">Edit Marketing Page</button>
         </div>
     `;
-
-    // event listeners to the edit buttons
-    document.querySelector('#editBanner').addEventListener('click', () => {
-      window.location.href = 'banner.html';
-    });
-    
-    document.querySelector('#editMarketingPage').addEventListener('click', () => {
-      window.location.href = 'marketing.html';
-    });
   } else {
       messageSection.innerHTML = `
           <h2>No Active Campaign</h2>
