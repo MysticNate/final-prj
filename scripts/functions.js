@@ -7,9 +7,7 @@ export function handleBannerEditor() {
 
   bannerForm.addEventListener('submit', (event) => {
       event.preventDefault();
-      //בדיקה אם קוד כפול
-      //אולי זה בשביל ה real time
-
+      
       const bannerType = document.querySelector('#bannerType').value;
       const bannerText = document.querySelector('#bannerText').value;
       const backgroundColor = document.querySelector('#backgroundColor').value;
@@ -17,14 +15,14 @@ export function handleBannerEditor() {
       const fontSize = document.querySelector('#fontSize').value + 'px';
       const fontFamily = document.querySelector('#fontType').value;
 
-      // Ensure all values are defined before saving
+      // ensures all values are defined before saving
       let bannerData = {
-          type: bannerType || '',            // Default to empty string if undefined
-          text: bannerText || '',            // Default to empty string if undefined
-          backgroundColor: backgroundColor || '',  // Default to empty string if undefined
-          textColor: textColor || '',        // Default to empty string if undefined
-          fontSize: fontSize || '16px',      // Default to '16px' if undefined
-          fontFamily: fontFamily || 'Arial'  // Default to 'Arial' if undefined
+          type: bannerType,     
+          text: bannerText,     
+          backgroundColor: backgroundColor,
+          textColor: textColor,
+          fontSize: fontSize,
+          fontFamily: fontFamily
       };
 
       // Save banner data to localStorage
