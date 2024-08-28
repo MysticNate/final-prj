@@ -287,7 +287,7 @@ export function handleCampaignManagement() {
         <h3>Marketing Page Preview:</h3>
         ${marketingPage && marketingPage.title ? `
           <div style="background-color: ${marketingPage.backgroundColor}; color: ${marketingPage.textColor}; padding: 20px;">
-            <h1>${marketingPage.title}</h1>
+            <h2>${marketingPage.title}</h2>
             ${marketingPage.image ? `<img src="${marketingPage.image}" alt="Marketing Image" style="width: 100%; max-height: 300px; object-fit: cover;">` : ''}
             <p>${marketingPage.content}</p>
           </div>
