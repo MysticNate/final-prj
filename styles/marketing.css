@@ -1,4 +1,4 @@
-
+/* Base */
 form {
     display: grid;
     gap: 1rem;
@@ -9,9 +9,11 @@ form {
     border-radius: 8px;
     background-color: #f9f9f9;
 }
-h1{
-    text-align:center;
+
+h1 {
+    text-align: center;
 }
+
 label {
     font-weight: bold;
     margin-bottom: 0.5rem;
@@ -62,8 +64,9 @@ button[type="submit"]:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
+/* Responsive settings to types of screens */
+
+@media (max-width: 599px) {
     form {
         padding: 1rem;
         border: none;
@@ -71,5 +74,59 @@ button[type="submit"]:hover {
 
     button[type="submit"] {
         width: 100%;
+        padding: 0.75rem;
+        font-size: 0.875rem;
+    }
+
+    textarea {
+        height: 120px;
+    }
+
+    #marketingPagePreview {
+        padding: 1rem;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* Tablet*/
+@media (min-width: 600px) and (max-width: 1199px) {
+    form {
+        padding: 1.5rem;
+    }
+
+    button[type="submit"] {
+        width: 100%;
+        padding: 0.75rem 1.25rem;
+        font-size: 0.9rem;
+    }
+
+    textarea {
+        height: 130px;
+    }
+
+    #marketingPagePreview {
+        padding: 1.5rem;
+        box-shadow: 0 0 9px rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* Desktop */
+@media (min-width: 1200px) {
+    form {
+        padding: 2rem;
+    }
+
+    button[type="submit"] {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    textarea {
+        height: 150px;
+    }
+
+    #marketingPagePreview {
+        padding: 2rem;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 }

@@ -1,4 +1,4 @@
-
+/* Base styles */
 body, h1, form, div {
     margin: 0;
     padding: 0;
@@ -65,7 +65,7 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #d33;
 }
 
 #errorMessage {
@@ -73,4 +73,81 @@ button:hover {
     color: red;
     margin-top: 10px; 
     text-align: left;
+}
+
+/* Responsive styles */
+
+/* Mobile (small screens) */
+@media only screen and (max-width: 599px) {
+    h1 {
+        font-size: 1.5em;
+    }
+
+    form {
+        padding: 15px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        font-size: 14px;
+    }
+
+    button {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    #errorMessage {
+        font-size: 12px;
+    }
+}
+
+/* Tablet */
+@media only screen and (min-width: 600px) and (max-width: 1199px) {
+    h1 {
+        font-size: 1.8em;
+    }
+
+    form {
+        padding: 18px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        font-size: 15px;
+    }
+
+    button {
+        padding: 9px 14px;
+        font-size: 15px;
+    }
+
+    #errorMessage {
+        font-size: 13px;
+    }
+}
+
+/* Desktop settings */
+@media only screen and (min-width: 1200px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    form {
+        padding: 20px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        font-size: 16px;
+    }
+
+    button {
+        padding: 10px 15px;
+        font-size: 16px;
+    }
+
+    #errorMessage {
+        font-size: 14px;
+    }
 }

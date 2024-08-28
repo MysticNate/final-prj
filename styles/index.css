@@ -1,3 +1,4 @@
+/* Base */
 .menu-header {
     background-color: #ff0000;
     padding: 10px 0;
@@ -27,4 +28,54 @@
 
 body {
     font-family: Arial, sans-serif;
+}
+
+/* Responsive design for multipile screens */
+
+/* Mobile */
+@media only screen and (max-width: 599px) {
+    .menu-header li {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .menu-header {
+        padding: 15px;
+    }
+
+    .menu-header a {
+        font-size: 14px;
+    }
+}
+
+/* Tablet */
+@media only screen and (min-width: 600px) and (max-width: 1199px) {
+    .menu-header li {
+        display: inline;
+        margin-right: 15px;
+    }
+
+    .menu-header {
+        padding: 12px 0;
+    }
+
+    .menu-header a {
+        font-size: 16px;
+    }
+}
+
+/* Desktop */
+@media only screen and (min-width: 1200px) {
+    .menu-header li {
+        display: inline;
+        margin-right: 20px;
+    }
+
+    .menu-header {
+        padding: 10px 0;
+    }
+
+    .menu-header a {
+        font-size: 18px;
+    }
 }

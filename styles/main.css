@@ -1,3 +1,4 @@
+/* Base */
 #campaignOverview {
     background-color: rgb(249, 218, 218);
     padding: 20px;
@@ -8,4 +9,45 @@
 #message {
     font-size: 1.2em;
     color: #333;
+}
+
+/* Responsive styles */
+
+/* Mobile */
+@media only screen and (max-width: 599px) {
+    #campaignOverview {
+        padding: 10px;
+        margin-top: 3px;
+        border-radius: 5px;
+    }
+
+    #message {
+        font-size: 1em;
+    }
+}
+
+/* Tablet */
+@media only screen and (min-width: 600px) and (max-width: 1199px) {
+    #campaignOverview {
+        padding: 15px;
+        margin-top: 4px;
+        border-radius: 6px;
+    }
+
+    #message {
+        font-size: 1.1em;
+    }
+}
+
+/* Desktop (large screens) */
+@media only screen and (min-width: 1200px) {
+    #campaignOverview {
+        padding: 20px;
+        margin-top: 5px;
+        border-radius: 8px;
+    }
+
+    #message {
+        font-size: 1.2em;
+    }
 }

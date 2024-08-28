@@ -1,3 +1,4 @@
+/* Base styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -24,9 +25,10 @@ form {
     background-color: #f9f9f9;
 }
 
-h1{
+h1 {
     text-align: center;
 }
+
 label {
     display: block;
     margin-top: 10px;
@@ -73,4 +75,99 @@ button:hover {
     text-align: center;
     background-color: #fff;
     min-height: 100px;
+}
+
+/* Responsive styles */
+
+/* Mobile styles (small screens) */
+@media only screen and (max-width: 599px) {
+    header nav ul li {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    form {
+        padding: 15px;
+        margin: 10px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="color"],
+    select {
+        font-size: 14px;
+        padding: 6px;
+    }
+
+    button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    #bannerPreview {
+        padding: 15px;
+        min-height: 80px;
+    }
+}
+
+/* Tablet styles (medium screens) */
+@media only screen and (min-width: 600px) and (max-width: 1199px) {
+    header nav ul li {
+        display: inline;
+        margin-right: 15px;
+    }
+
+    form {
+        padding: 18px;
+        margin: 15px auto;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="color"],
+    select {
+        font-size: 15px;
+        padding: 7px;
+    }
+
+    button {
+        padding: 9px 18px;
+        font-size: 15px;
+    }
+
+    #bannerPreview {
+        padding: 18px;
+        min-height: 90px;
+    }
+}
+
+/* Desktop styles (large screens) */
+@media only screen and (min-width: 1200px) {
+    header nav ul li {
+        display: inline;
+        margin-right: 20px;
+    }
+
+    form {
+        padding: 20px;
+        margin: 20px auto;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="color"],
+    select {
+        font-size: 16px;
+        padding: 8px;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+
+    #bannerPreview {
+        padding: 20px;
+        min-height: 100px;
+    }
 }
