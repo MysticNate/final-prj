@@ -62,7 +62,10 @@ button[type="submit"]:hover {
     border-radius: 8px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 650px; /* Updated width */
+    margin: 0 auto; /* Center align */
 }
+
 
 /* Responsive settings to types of screens */
 

@@ -148,7 +148,7 @@ export function handleMarketingPageEditor() {
     let imageHTML = '';
     if (pageImage) {
       let imageUrl = URL.createObjectURL(pageImage);
-      imageHTML = `<img src="${imageUrl}" alt="Marketing Image" style="width: 100%; max-width: 100%; height: auto; max-height: 300px; object-fit: cover; object-position: center;">`;
+      imageHTML = `<img src="${imageUrl}" alt="Marketing Image" style="width: 100%; max-width: 100%; max-height: 300px; object-fit: cover; object-position: center;">`;
     }
 
     marketingPagePreview.innerHTML = `
@@ -159,6 +159,7 @@ export function handleMarketingPageEditor() {
       </div>
     `;
   }
+
 
   if (campaign.name) {
     // Display the banner preview
@@ -196,15 +197,15 @@ export function handleMarketingPageEditor() {
 
     let imageUrl = '';
     if (pageImage) {
-      imageUrl = URL.createObjectURL(pageImage);
+        imageUrl = URL.createObjectURL(pageImage);
     }
 
     const marketingPageData = {
-      title: pageTitle,
-      content: pageContent,
-      backgroundColor: pageBackgroundColor,
-      textColor: textColor,
-      image: imageUrl,
+        title: pageTitle,
+        content: pageContent,
+        backgroundColor: pageBackgroundColor,
+        textColor: textColor,
+        image: imageUrl,
     };
 
     localStorage.setItem('marketingPage', JSON.stringify(marketingPageData));
