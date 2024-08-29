@@ -75,6 +75,8 @@ button:hover {
     text-align: center;
     background-color: #fff;
     min-height: 100px;
+    max-width: 650px; /* width */
+    margin: 0 auto; /* Center align */
 }
 
 /* Responsive styles */

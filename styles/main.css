@@ -1,16 +1,32 @@
 /* Base */
-#campaignOverview {
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    min-height: 100vh; /* Full viewport height */
+    background-color: #f0f0f0;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center main content horizontally */
+    width: 90%;
+    max-width: 1200px; /* Optional: Limit maximum width */
+}
+
+/* style sections */
+#campaignOverview, #message {
     background-color: rgb(249, 218, 218);
     padding: 20px;
     margin-top: 5px;
     border-radius: 8px;
-}
-
-
-
-#message {
-    font-size: 1.2em;
-    color: #333;
+    width: 100%; 
+    max-width: 800px; 
+    text-align: center; /* Center text within the sections */
 }
 
 /* Responsive styles */

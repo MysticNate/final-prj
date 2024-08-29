@@ -118,8 +118,7 @@ export function handleMainPage() {
         <div id="marketingPagePreview">
             <h3>Marketing Page Preview:</h3>
             ${marketingPageContentHTML}
-        </div>
-    `;
+        </div>`;
   } else {
       messageSection.innerHTML = `
           <h2>No Active Campaign</h2>
