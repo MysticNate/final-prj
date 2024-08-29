@@ -296,7 +296,7 @@ export function handleCampaignManagement() {
     
     // validate campaign name
     function isLetter(char) {
-      return (char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z');
+      return (char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z') || (char === ' ') ;
     }
 
     function isValidCampaignName(name) {
