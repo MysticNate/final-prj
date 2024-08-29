@@ -52,6 +52,44 @@ export function handleLogin() {
   });
 }
 
+// main page
+export function handleMainPage() {
+  const campaignOverview = document.querySelector('#campaignOverview');
+  const messageSection = document.querySelector('#message');
+
+  // Retrieve data from localStorage
+  let campaign = JSON.parse(localStorage.getItem('campaign')) || {};
+  let banner = campaign.banner || JSON.parse(localStorage.getItem('banner')) || {};
+  let marketingPage = JSON.parse(localStorage.getItem('marketingPage')) || {};
+  
+  if (campaign.name) {
+    // checking if banner data exists
+    const bannerHTML = generateBannerHTML(banner);
+    
+    //checking if marketing data exists
+    const marketingPageContentHTML = generateMarketingPageHTML(marketingPage);
+
+    // Update the campaign overview section with the correct HTML
+    campaignOverview.innerHTML = `
+        <h2>${campaign.name}</h2>
+        <p>Start Date: ${campaign.startDate}</p>
+        <p>End Date: ${campaign.endDate}</p>
+        <div id="bannerPreview">
+            <h3>Banner Preview:</h3>
+            ${bannerHTML}
+        </div>
+        <div id="marketingPagePreview">
+            <h3>Marketing Page Preview:</h3>
+            ${marketingPageContentHTML}
+        </div>`;
+  } else {
+      messageSection.innerHTML = `
+          <h2>No Active Campaign</h2>
+          <p>You don't have an active campaign. <a href="campaign.html">Create a new campaign</a>.</p>
+      `;
+  }
+}
+
 //banner editor
 export function handleBannerEditor() {
   const bannerForm = document.querySelector('#bannerForm');
@@ -107,44 +145,6 @@ export function handleBannerEditor() {
     });
 
     bannerPreview.innerHTML = bannerHTML;
-  }
-}
-
-// main page
-export function handleMainPage() {
-  const campaignOverview = document.querySelector('#campaignOverview');
-  const messageSection = document.querySelector('#message');
-
-  // Retrieve data from localStorage
-  let campaign = JSON.parse(localStorage.getItem('campaign')) || {};
-  let banner = campaign.banner || JSON.parse(localStorage.getItem('banner')) || {};
-  let marketingPage = JSON.parse(localStorage.getItem('marketingPage')) || {};
-  
-  if (campaign.name) {
-    // checking if banner data exists
-    const bannerHTML = generateBannerHTML(banner);
-    
-    //checking if marketing data exists
-    const marketingPageContentHTML = generateMarketingPageHTML(marketingPage);
-
-    // Update the campaign overview section with the correct HTML
-    campaignOverview.innerHTML = `
-        <h2>${campaign.name}</h2>
-        <p>Start Date: ${campaign.startDate}</p>
-        <p>End Date: ${campaign.endDate}</p>
-        <div id="bannerPreview">
-            <h3>Banner Preview:</h3>
-            ${bannerHTML}
-        </div>
-        <div id="marketingPagePreview">
-            <h3>Marketing Page Preview:</h3>
-            ${marketingPageContentHTML}
-        </div>`;
-  } else {
-      messageSection.innerHTML = `
-          <h2>No Active Campaign</h2>
-          <p>You don't have an active campaign. <a href="campaign.html">Create a new campaign</a>.</p>
-      `;
   }
 }
 
