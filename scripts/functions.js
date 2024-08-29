@@ -1,3 +1,54 @@
+//login
+function checkLoginStatus() {
+  const isLoggedIn = localStorage.getItem('isLoggedIn');
+  const currentPage = window.location.pathname;
+
+  // redirect if not logged in and not on the login page
+  if (!isLoggedIn && !currentPage.includes('login.html')) {
+    window.location.href = '../pages/login.html';
+  }
+}
+
+// check login status if not on the login page
+if (!window.location.pathname.includes('login.html')) {
+  checkLoginStatus();
+}
+
+export function handleLogin() {
+  // Initial users
+  let users = [
+      { username: 'Giora', password: 'the drunk russian' },
+      { username: 'Nati', password: 'the black thief' },
+      { username: 'Waseem', password: 'the arab terrorist' }
+  ];
+
+  // Check if users are already in Local Storage
+  if (!localStorage.getItem('users')) {
+      localStorage.setItem('users', JSON.stringify(users));
+  }
+
+  const loginForm = document.querySelector('#loginForm');
+  const errorMessage = document.querySelector('#errorMessage');
+
+  loginForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const username = document.querySelector('#username').value;
+      const password = document.querySelector('#password').value;
+      const storedUsers = JSON.parse(localStorage.getItem('users'));
+
+      // Check login details
+      const user = storedUsers.find(user => user.username === username && user.password === password);
+
+      if (user) {
+          localStorage.setItem('isLoggedIn', 'true'); //login flag
+          window.location.href = '../pages/main.html';
+      } else {
+          errorMessage.textContent = 'Invalid username or password';
+      }
+  });
+}
+
 //banner editor
 export function handleBannerEditor() {
   const bannerForm = document.querySelector('#bannerForm');
@@ -298,37 +349,4 @@ export function handleCampaignManagement() {
   }  
 }
 
-//login
-export function handleLogin() {
-  // Initial users
-  let users = [
-      { username: 'Giora', password: 'the drunk russian' },
-      { username: 'Nati', password: 'the black thief' },
-      { username: 'Waseem', password: 'the arab terrorist' }
-  ];
 
-  // Check if users are already in Local Storage
-  if (!localStorage.getItem('users')) {
-      localStorage.setItem('users', JSON.stringify(users));
-  }
-
-  const loginForm = document.querySelector('#loginForm');
-  const errorMessage = document.querySelector('#errorMessage');
-
-  loginForm.addEventListener('submit', function (event) {
-      event.preventDefault();
-
-      const username = document.querySelector('#username').value;
-      const password = document.querySelector('#password').value;
-      const storedUsers = JSON.parse(localStorage.getItem('users'));
-
-      // Check login details
-      const user = storedUsers.find(user => user.username === username && user.password === password);
-
-      if (user) {
-          window.location.href = '../pages/main.html';
-      } else {
-          errorMessage.textContent = 'Invalid username or password';
-      }
-  });
-}
