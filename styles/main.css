@@ -29,6 +29,15 @@ main {
     text-align: center; /* Center text within the sections */
 }
 
+/* Center the banner preview */
+#bannerPreview {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    margin-top: 20px;
+}
+
 /* Responsive styles */
 
 /* Mobile */
