@@ -1,3 +1,8 @@
+// check login status if not on the login page
+if (!window.location.pathname.includes('login.html')) {
+  checkLoginStatus();
+}
+
 //login
 function checkLoginStatus() {
   const isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -7,11 +12,6 @@ function checkLoginStatus() {
   if (!isLoggedIn && !currentPage.includes('login.html')) {
     window.location.href = '../pages/login.html';
   }
-}
-
-// check login status if not on the login page
-if (!window.location.pathname.includes('login.html')) {
-  checkLoginStatus();
 }
 
 export function handleLogin() {
