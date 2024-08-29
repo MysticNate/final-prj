@@ -163,21 +163,36 @@ export function handleMarketingPageEditor() {
     const textColor = document.querySelector('#textColor').value;
     const pageImage = document.querySelector('#pageImage').files[0];
 
-    let imageHTML = '';
     if (pageImage) {
-      let imageUrl = URL.createObjectURL(pageImage);
-      imageHTML = `<img src="${imageUrl}" alt="Marketing Image" style="width: 100%; max-width: 100%; max-height: 300px; object-fit: cover; object-position: center;">`;
+      const reader = new FileReader();
+      /* The above code is a JavaScript snippet that is handling the loading of an image file using a
+      FileReader object. When the image file is loaded successfully, the code extracts the Base64
+      string representation of the image and uses it to generate a marketing page HTML content. The
+      generated HTML content includes a title, content, background color, text color, and the image
+      itself (using the Base64 string). Finally, the generated HTML content is displayed in a DOM
+      element with the id "marketingPagePreview". */
+      reader.onload = function (e) {
+        const imageUrl = e.target.result;  // Base64 string
+        const marketingPageHTML = generateMarketingPageHTML({
+          title: pageTitle,
+          content: pageContent,
+          backgroundColor: pageBackgroundColor,
+          textColor: textColor,
+          image: imageUrl  // Use Base64 string
+        });
+        marketingPagePreview.innerHTML = marketingPageHTML;
+      };
+      reader.readAsDataURL(pageImage);
+    } else {
+      const marketingPageHTML = generateMarketingPageHTML({
+        title: pageTitle,
+        content: pageContent,
+        backgroundColor: pageBackgroundColor,
+        textColor: textColor,
+        image: ''  // No image provided
+      });
+      marketingPagePreview.innerHTML = marketingPageHTML;
     }
-
-    const marketingPageHTML = generateMarketingPageHTML({
-      title: pageTitle,
-      content: pageContent,
-      backgroundColor: pageBackgroundColor,
-      textColor: textColor,
-      image: pageImage ? URL.createObjectURL(pageImage) : ''
-    });
-
-    marketingPagePreview.innerHTML = marketingPageHTML;
   }
 
   function saveMarketingPage(event) {
@@ -191,26 +206,42 @@ export function handleMarketingPageEditor() {
 
     let imageUrl = '';
     if (pageImage) {
-        imageUrl = URL.createObjectURL(pageImage);
-    }
-
-    const marketingPageData = {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        imageUrl = e.target.result;  // Base64 string
+        const marketingPageData = {
+          title: pageTitle,
+          content: pageContent,
+          backgroundColor: pageBackgroundColor,
+          textColor: textColor,
+          image: imageUrl  // Save Base64 string
+        };
+        localStorage.setItem('marketingPage', JSON.stringify(marketingPageData));
+        updateCampaignWithMarketingPage(marketingPageData);
+        alert('Marketing page saved!');
+      };
+      reader.readAsDataURL(pageImage);
+    } else {
+      const marketingPageData = {
         title: pageTitle,
         content: pageContent,
         backgroundColor: pageBackgroundColor,
         textColor: textColor,
-        image: imageUrl,
-    };
+        image: imageUrl
+      };
+      localStorage.setItem('marketingPage', JSON.stringify(marketingPageData));
+      updateCampaignWithMarketingPage(marketingPageData);
+      alert('Marketing page saved!');
+    }
+  }
 
-    localStorage.setItem('marketingPage', JSON.stringify(marketingPageData));
-
-    // Update the campaign object with the new marketing page data
+  function updateCampaignWithMarketingPage(marketingPageData) {
     let campaign = JSON.parse(localStorage.getItem('campaign')) || {};
     campaign.marketingPageContent = marketingPageData;
     localStorage.setItem('campaign', JSON.stringify(campaign));
-    alert('Marketing page saved!');
   }
 }
+
 
 //generate banner page
 function generateBannerHTML(banner) {
@@ -239,7 +270,7 @@ function generateBannerHTML(banner) {
 //generate marketing page
 function generateMarketingPageHTML(marketingPage) {
   if (!marketingPage) return '';
-  
+
   return `
     <div style="background-color: ${marketingPage.backgroundColor}; color: ${marketingPage.textColor}; padding: 20px;">
       <h2>${marketingPage.title}</h2>
@@ -248,6 +279,7 @@ function generateMarketingPageHTML(marketingPage) {
     </div>
   `;
 }
+
 
 //campaign
 export function handleCampaignManagement() {
