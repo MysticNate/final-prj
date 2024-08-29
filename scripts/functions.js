@@ -290,6 +290,36 @@ export function handleCampaignManagement() {
     const campaignName = document.querySelector('#campaignName').value;
     const startDate = document.querySelector('#startDate').value;
     const endDate = document.querySelector('#endDate').value;
+    errorMessage.textContent = '';
+    
+    // validate campaign name
+    function isLetter(char) {
+      return (char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z');
+    }
+
+    function isValidCampaignName(name) {
+      for (let i = 0; i < name.length; i++) {
+        if (isLetter(name[i]) === false) {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    if (isValidCampaignName(campaignName) === false) {
+      errorMessage.textContent = 'Campaign name must contain only letters.';
+      return;
+    }
+
+    // convert dates to Date objects
+    const startDateObj = new Date(startDate);
+    const endDateObj = new Date(endDate);
+
+    // check if end date is before start date
+    if (endDateObj < startDateObj) {
+      errorMessage.textContent = 'Invalid date range.';
+      return;
+    }
 
     // retrieve banner and marketing page data from Local Storage
     const banner = JSON.parse(localStorage.getItem('banner'));
