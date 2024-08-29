@@ -3,6 +3,7 @@ if (!window.location.pathname.includes('login.html')) {
   checkLoginStatus();
 }
 
+
 //login
 function checkLoginStatus() {
   const isLoggedIn = localStorage.getItem('isLoggedIn');
