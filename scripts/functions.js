@@ -1,3 +1,5 @@
+//localStorage.clear();
+
 // check login status if not on the login page
 if (!window.location.pathname.includes('login.html')) {
   checkLoginStatus();
