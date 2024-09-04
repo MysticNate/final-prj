@@ -171,8 +171,8 @@ export function handleMarketingPageEditor() {
       generated HTML content includes a title, content, background color, text color, and the image
       itself (using the Base64 string). Finally, the generated HTML content is displayed in a DOM
       element with the id "marketingPagePreview". */
-      reader.onload = function (e) {
-        const imageUrl = e.target.result;  // Base64 string
+      reader.onload = function (image) {
+        const imageUrl = image.target.result;  // Base64 string
         const marketingPageHTML = generateMarketingPageHTML({
           title: pageTitle,
           content: pageContent,
@@ -207,8 +207,8 @@ export function handleMarketingPageEditor() {
     let imageUrl = '';
     if (pageImage) {
       const reader = new FileReader();
-      reader.onload = function (e) {
-        imageUrl = e.target.result;  // Base64 string
+      reader.onload = function (image) {
+        imageUrl = image.target.result;  // Base64 string
         const marketingPageData = {
           title: pageTitle,
           content: pageContent,
@@ -274,7 +274,7 @@ function generateMarketingPageHTML(marketingPage) {
   return `
     <div style="background-color: ${marketingPage.backgroundColor}; color: ${marketingPage.textColor}; padding: 20px;">
       <h2>${marketingPage.title}</h2>
-      ${marketingPage.image ? `<img src="${marketingPage.image}" alt="Marketing Image" style="width: 100%; max-height: 300px; object-fit: cover;">` : ''}
+      ${marketingPage.image ? `<img src="${marketingPage.image}" alt="Marketing Image">` : ''}
       <p>${marketingPage.content}</p>
     </div>
   `;
@@ -371,4 +371,42 @@ export function handleCampaignManagement() {
   } 
 }
 
+export function handleMail(){
+    const campaignOverview = document.querySelector('#campaignDetails');
+    const emailForm = document.querySelector('#sendEmailForm');
 
+    // load campaign details from localStorage
+    let campaign = JSON.parse(localStorage.getItem('campaign')) || {};
+    let banner = campaign.banner || JSON.parse(localStorage.getItem('banner')) || {};
+    let marketingPage = JSON.parse(localStorage.getItem('marketingPage')) || {};
+
+    // display campaign details
+    if (campaign.name) {
+        const bannerHTML = generateBannerHTML(banner);
+        const marketingPageContentHTML = generateMarketingPageHTML(marketingPage);
+        
+        campaignOverview.innerHTML = `
+          <h2>${campaign.name}</h2>
+          <p>Start Date: ${campaign.startDate}</p>
+          <p>End Date: ${campaign.endDate}</p>
+          <div id="bannerPreview">
+              <h3>Banner Preview:</h3>
+              ${bannerHTML}
+          </div>
+          <div id="marketingPagePreview">
+              <h3>Marketing Page Preview:</h3>
+              ${marketingPageContentHTML}
+          </div>`;
+    } else {
+        campaignOverview.innerHTML = '<p>No active campaign to display.</p>';
+    }
+
+    // handle email form submission
+    emailForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const email = document.querySelector('#email').value;
+        alert(`Campaign has been sent to ${email}!`);
+        //resets the email form 
+        emailForm.reset(); 
+    });
+};

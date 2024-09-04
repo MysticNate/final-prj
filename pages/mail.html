@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="x-icon" href="../styles/logo/903482.png">
-    <title>Campaign Management</title>
+    <title>Mail Page</title>
     <link rel="stylesheet" href="../styles/index.css">
-    <link rel="stylesheet" href="../styles/campaign.css">
+    <link rel="stylesheet" href="../styles/mail.css">
     <script src="../scripts/index.js" type="module" defer></script>
 </head>
 <body>
@@ -23,24 +22,28 @@
         </nav>
     </header>
     <main>
-        <h1>Campaign Management</h1>
-        <form id="campaignForm">
-            <label for="campaignName">Campaign Name:</label>
-            <input type="text" id="campaignName" placeholder="Enter campaign name" required>
+        <h1>Preview & Mail</h1>
+        <!-- user input -->
+        <section id="userInput">
+            <h2>Your Message</h2>
+            <textarea id="userMessage" placeholder="Write your message here..."></textarea>
+        </section>
+        
+        <!-- campaign preview -->
+        <section id="campaignPreview">
+            <h2>Campaign Preview</h2>
+            <div id="campaignDetails"></div>
+        </section>
 
-            <label for="startDate">Start Date:</label>
-            <input type="date" id="startDate" required>
-
-            <label for="endDate">End Date:</label>
-            <input type="date" id="endDate" required>
-
-            <button type="submit">Save Campaign</button>
-            <div id="errorMessage"></div>
-        </form>
-        <h2>Current Campaign</h2>
-        <div id="currentCampaign">
-            <!-- campaign details will be placed here -->
-        </div>
+        <!-- mail form -->
+        <section id="emailForm">
+            <h2>Send Campaign to Email</h2>
+            <form id="sendEmailForm">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" required>
+                <button type="submit">Send Campaign</button>
+            </form>
+        </section>
     </main>
 </body>
 </html>

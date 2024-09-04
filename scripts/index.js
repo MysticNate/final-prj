@@ -1,4 +1,4 @@
-import { handleBannerEditor, handleMainPage, handleMarketingPageEditor, handleCampaignManagement, handleLogin } from './functions.js';
+import { handleBannerEditor, handleMainPage, handleMarketingPageEditor, handleCampaignManagement, handleLogin, handleMail } from './functions.js';
 
 //banner
 if (location.pathname.includes('banner.html')) {
@@ -23,4 +23,9 @@ if (location.pathname.includes('campaign.html')) {
 //login
 if (location.pathname.includes('login.html')) {
   handleLogin();
+};
+
+//mail
+if (location.pathname.includes('mail.html')) {
+  handleMail();
 };
